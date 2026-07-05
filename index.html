@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Alisha</title>
+    <!-- Tailwind CSS for clean layout architecture -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js for fluid interactive state management -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Google Fonts for premium editorial typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .serif-font { font-family: 'Cinzel', serif; }
+        
+        /* 35 High-Density Background Particle Systems & Mechanical Loops */
+        @keyframes rotate-3d-cube {
+            0% { transform: rotateX(0deg) rotateY(0deg) scale(0.9); }
+            50% { transform: rotateX(180deg) rotateY(90deg) scale(1.04); }
+            100% { transform: rotateX(360deg) rotateY(360deg) scale(0.9); }
+        }
+        @keyframes orbital-sweep {
+            0% { transform: rotate(0deg) translateX(12px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(12px) rotate(-360deg); }
+        }
+        @keyframes architectural-drift-y { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-18px); } }
+        @keyframes architectural-drift-x { 0%, 100% { transform: translateX(0px); } 50% { transform: translateX(14px); } }
+        @keyframes rotation-gear { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .anim-tesseract { animation: rotate-3d-cube 20s linear infinite; transform-style: preserve-3d; }
+        .anim-orbit { animation: orbital-sweep 4s linear infinite; }
+        .anim-gear-cw { animation: rotation-gear 12s linear infinite; }
+        .anim-gear-ccw { animation: rotation-gear 12s linear infinite reverse; }
+        .drift-y { animation: architectural-drift-y 8s ease-in-out infinite; }
+        .drift-x { animation: architectural-drift-x 11s ease-in-out infinite; }
+
+        /* MELODIC TRANSITION OVERLAY TIMINGS */
+        @keyframes overlay-darken {
+            0% { background-color: rgba(10, 9, 9, 0); backdrop-blur: 0px; }
+            12% { background-color: rgba(10, 9, 9, 0.98); backdrop-blur: 16px; }
+            88% { background-color: rgba(10, 9, 9, 0.98); backdrop-blur: 16px; }
+            100% { background-color: rgba(10, 9, 9, 0); backdrop-blur: 0px; }
+        }
+        @keyframes fretboard-slide {
+            0% { transform: translateY(-30px); opacity: 0; }
+            15% { transform: translateY(0); opacity: 1; }
+            75% { transform: translateY(0); opacity: 1; filter: blur(0px); }
+            100% { transform: translateY(40px); opacity: 0; filter: blur(10px); }
+        }
+        @keyframes string-pluck {
+            0% { transform: scaleY(1); }
+            50% { transform: scaleY(2.5); color: #FAF6F0; }
+            100% { transform: scaleY(1); }
+        }
+        @keyframes note-slide-down {
+            0% { top: 0%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+        @keyframes message-bloom-reveal { 
+            0% { opacity: 0; transform: scale(0.95) translateY(15px); } 
+            12% { opacity: 1; transform: scale(1) translateY(0); } 
+            88% { opacity: 1; transform: scale(1) translateY(0); } 
+            100% { opacity: 0; transform: scale(0.98); } 
+        }
+
+        .overload-blackout { animation: overlay-darken 6s cubic-bezier(0.1, 0.8, 0.25, 1) forwards; }
+        .fretboard-interface { animation: fretboard-slide 2.2s cubic-bezier(0.1, 0.9, 0.3, 1) forwards; }
+        .note-marker { animation: note-slide-down 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .synchronized-text-reveal { animation: message-bloom-reveal 4.2s cubic-bezier(0.25, 1, 0.5, 1) forwards 1.8s; }
+    </style>
+</head>
+<body 
+    class="bg-[#1B1817] text-[#E7E0D7] antialiased relative min-h-screen flex flex-col justify-between selection:bg-[#D48670]/20 selection:text-[#E7E0D7] overflow-x-hidden"
+    x-data="{ 
+        secretActive: false,
+        galleryActive: false,
+        horoscopeActive: false,
+        selectedSign: 'aries',
+        horoscopeText: '',
+        photoIndex: 0,
+        
+        /* UNIFIED SYNODIC MOON TIMELINE CONFIGURATIONS (0-100) */
+        moonTimelinePct: 50,
+        isInteractiveMoon: false,
+
+        photos: [
+            { url: '1.jpg', title: 'Taj Mahal', desc: 'Mashallah🤑🤑🤑' },
+            { url: '2.jpeg', title: 'Amritsar Trip', desc: 'Waheguru ji da khalsa, waheguru ji di fateh 👳‍♂️🫡' },
+            { url: '3.jpg', title: 'Chandi Mata Temple', desc: 'Jai Mata di🤪' },
+            { url: '4.jpg', title: '1st Metro Ride', desc: 'Sarojini Nagar outing woohoo🤯' },
+            { url: '5.jpg', title: 'Goa Trip', desc: 'Very good trip, beach resort was very fun!  10/10😍😍😍😍' },
+            { url: '6.jpg', title: 'Vaccination', desc: 'Bakwas Modi stupid nigger stupid rules kill modi😡😡' }
+        ],
+        syncToRealTimeMoon() {
+            const baseLpDate = new Date(2000, 0, 6, 18, 14, 0);
+            const cycleDays = 29.530588853;
+            const currentAge = ((new Date() - baseLpDate) / (1000 * 60 * 60 * 24)) % cycleDays;
+            this.moonTimelinePct = Math.floor((currentAge / cycleDays) * 100);
+            this.isInteractiveMoon = false;
+        },
+        getLunarMetrics() {
+            const pct = this.moonTimelinePct / 100;
+            let label = '';
+            let pathD = '';
+
+            if (pct <= 0.5) {
+                if (pct <= 0.25) {
+                    label = pct < 0.05 ? 'New Moon 🌑' : 'Waxing Crescent 🌒';
+                    let rx = 36 * (1 - (pct / 0.25));
+                    pathD = `M 40 4 A 36 36 0 0 1 40 76 A ${rx} 36 0 0 1 40 4 Z`;
+                } else {
+                    label = pct <= 0.27 ? 'First Quarter 🌓' : 'Waxing Gibbous 🌔';
+                    let rx = 36 * ((pct - 0.25) / 0.25);
+                    pathD = `M 40 4 A 36 36 0 0 1 40 76 A ${rx} 36 0 0 0 40 4 Z`;
+                }
+            } else {
+                if (pct <= 0.75) {
+                    label = pct <= 0.55 ? 'Full Moon 🌕' : 'Waning Gibbous 🌖';
+                    let rx = 36 * (1 - ((pct - 0.5) / 0.25));
+                    pathD = `M 40 4 A 36 36 0 0 0 40 76 A ${rx} 36 0 0 0 40 4 Z`;
+                } else {
+                    label = pct >= 0.95 ? 'New Moon 🌑' : 'Third Quarter 🌗' && pct <= 0.77 ? 'Third Quarter 🌗' : 'Waning Crescent 🌘';
+                    let rx = 36 * ((pct - 0.75) / 0.25);
+                    pathD = `M 40 4 A 36 36 0 0 0 40 76 A ${rx} 36 0 0 1 40 4 Z`;
+                }
+            }
+
+            const svgContent = `
+                <svg class='w-20 h-20 overflow-visible select-none' viewBox='0 0 80 80'>
+                    <defs>
+                        <radialGradient id='globeDark' cx='30%' cy='30%' r='70%'><stop offset='0%' stop-color='#4A3E3B'/><stop offset='80%' stop-color='#1C1615'/><stop offset='100%' stop-color='#0B0909'/></radialGradient>
+                        <radialGradient id='globeLit' cx='35%' cy='35%' r='65%'><stop offset='0%' stop-color='#FAF6F0'/><stop offset='50%' stop-color='#D48670'/><stop offset='100%' stop-color='#4A1C12'/></radialGradient>
+                    </defs>
+                    <circle cx='40' cy='40' r='36' fill='url(#globeLit)' stroke='#36302E' stroke-width='1.5' />
+                    ${pathD ? `<path d='${pathD}' fill='url(#globeDark)' />` : ''}
+                </svg>
+            `;
+            return { name: label, svg: svgContent };
+        },
+        fetchHoroscope(sign) {
+            this.loadingAstro = true;
+            this.horoscopeText = 'Connecting to real-time cosmological feed array...';
+            
+            fetch(`https://theastrologer-api.vercel.app/api/horoscope/${sign}/today`)
+                .then(res => {
+                    if (!res.ok) throw new Error();
+                    return res.json();
+                })
+                .then(res => {
+                    if (res.horoscope && res.horoscope.length > 80) {
+                        this.horoscopeText = res.horoscope;
+                    } else {
+                        throw new Error();
+                    }
+                    this.loadingAstro = false;
+                })
+                .catch(() => {
+                    const currentYearDay = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 1)) / 86400000);
+                    const fallbacks = {
+                        aries: ['The elemental fire alignment scales up an intense period of self-actualization today. Planetary tracks are pushing your productivity metrics into high gear, clearing roadblocks across personal architectures. Mars infuses your primary axis with focus, making it an exceptional window to execute structural transformations. Trust the pacing of your current cycle. You will find that family interactions are highly prioritized under this transit, giving you the clarity needed to balance immediate logistics while protecting household harmony from unnecessary stress. Rest your thoughts on long-term execution plans this evening.'],
+                        taurus: ['Grounding earth currents stabilize your current ambitions, forming a fortress against external system noise. Your financial and workspace frameworks are entering a clean, locked equilibrium. Venus coordinates elegant configurations across your chart, ensuring that behind-the-scenes adjustments match your foundational needs perfectly. Expect clear indicators of progress regarding household coordination or shared timelines. Cosmic parameters shield your focus today, allowing you to establish absolute order in your daily environment. Take this evening to rest comfortably as the planetary axis locks in peace and restorative clarity across your personal circle.'],
+                        gemini: ['A major surge of high-frequency cerebral influx hits your communicative axis today. Mercury coordinates multi-directional data lines, making it easy to resolve conceptual puzzles instantly. Creative ventures see robust progress as planetary channels shift to accommodate fast, innovative breakthroughs. Your natural adaptability becomes a major asset as unexpected background variables shift. Use this high-energy pattern to communicate vision parameters cleanly with family members. A lighthearted, witty evening approach keeps atmospheric friction completely nonexistent while drawing focus toward mutual weekly milestones.'],
+                        cancer: ['Intuitive lunar currents emphasize your foundational instincts and home architecture today. Cosmic grids form a dense, protective shield around your close network, allowing for seamless emotional calibration. Trust your internal diagnostics; they are pointing accurately toward immediate structural improvements. Shifting planetary lines allow you to direct family logistics with absolute poise and zero friction. Your presence serves as a calming anchor for the entire household right now. Maximize this nurturing energy by locking down steady, comfortable evening routines that prioritize collective rest.'],
+                        leo: ['Solar positioning magnifies your innate execution metrics, highlighting personal presence and creative output. A profound wave of clarity sweeps across your chart, refining your vision for family and long-term milestones. Planetary currents align beautifully to support authoritative, confident choices. You are exceptionally well-positioned to take charge of complex logistical matters without breaking a sweat today. Let your natural leadership style shine softly through your interactions, ensuring that everyone remains perfectly aligned. An exceptionally rewarding evening brings validation for your dedication.'],
+                        virgo: ['Meticulous Mercury aspects refine your system tracking capabilities today. Minor tracking revisions across your personal or professional loops will yield massive, high-fidelity efficiency rewards. Your natural capacity to manage complex data and coordinate routines resolves long-standing friction. Family members notice your incredible ability to keep everything running cleanly and systematically behind the scenes. Use this targeted energy to iron out dietary profiles or fitness logistics. Your dedicated discipline sets a high benchmark that protects household harmony perfectly.'],
+                        libra: ['Venusian stabilization vectors bring beautiful symmetry and diplomacy to your chart today. Interpersonal connections experience a smooth, balanced integration as cosmic tracking lines eliminate underlying friction. This atmospheric ease opens an ideal window to enjoy artistic or restorative activities. Communication with close family is highlighted by deep understanding and mutual appreciation templates. You can easily navigate complex schedules or sensitive choices with graceful poise today. Celebrate the quiet harmony of your immediate hub this evening.'],
+                        scorpio: ['Deep plutonic channels activate sharp strategic acumen and high-fidelity situational analysis across your chart. You possess an unparalleled capacity to see through environmental noise and secure your principal objectives cleanly. Trust your silent, focused diagnostics today. A powerful alignment protects your personal boundaries, allowing you to coordinate complex family blueprints from a position of absolute certainty. Move quietly and purposefully; your deliberate actions carry incredible weight and structure. A deeply satisfying evening brings total focus.'],
+                        sagittarius: ['Jupiter\'s expansive frequency opens up clear, progressive lanes across your chart today. Your outlook is characterized by high operational confidence, making it a perfect moment to launch new structural frameworks. Trust your broader tracking vectors; they are solid. Cosmic configurations support bold, optimistic family planning or workspace optimizations. Your natural enthusiasm brings an uplifting, dynamic frequency into the entire house layout. Take charge of forward-looking tasks with complete confidence today.'],
+                        capricorn: ['Rigorous Saturnian metrics stabilize your absolute framework, ensuring pristine long-term execution and boundary protection. Your primary long-term targets hit high validation marks today as cosmic support systems lock in. Continue holding your ground with calm, methodical persistence. Your legendary capacity to handle household operations solo with complete efficiency remains the structural backbone of your environment. Use this high-focus transit to map out structural timelines or budget details with crisp clarity.'],
+                        aquarius: ['Progressive stellar configurations map out profound diagnostic updates across your chart today. Your unique capacity to identify systemic, modern solutions to old puzzles brings instant equilibrium to your environment. Trust your innovative logic; it aligns beautifully with larger timelines. The cosmic matrix highlights your role as a forward-thinking visionary within your immediate family circle. Let your spontaneous insights direct household updates or scheduling parameters cleanly and effortlessly.'],
+                        pisces: ['Fluid, intuitive tides expand your creative processing capacity and empathetic understanding today. Planetary tracking modules shift seamlessly to support smooth, back-end operational alignment across your life. Trust the organic development of your projects. Your compassionate, deep presence creates an incredibly welcoming atmosphere inside the household right now. Use this supportive grid to align personal goals with mutual family milestones cleanly.']
+                    };
+                    this.horoscopeText = fallbacks[sign][currentYearDay % fallbacks[sign].length];
+                    this.loadingAstro = false;
+                });
+        }
+    }"
+    x-init="syncToRealTimeMoon(); setInterval(() => { if(!secretActive && !galleryActive && !horoscopeActive) { photoIndex = (photoIndex + 1) % photos.length } }, 5000)">
+
+    <!-- FLOATING GLASS HEART TRIGGER BUTTON -->
+    <button 
+        @click="secretActive = true; playSfx('guitar-run'); setTimeout(() => { secretActive = false }, 6000)"
+        class="absolute top-6 right-6 z-50 text-[#D48670] hover:text-[#FAF6F0] text-2xl bg-[#221E1D]/80 border border-[#36302E] hover:border-[#D48670] w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 active:scale-95 focus:outline-none cursor-pointer shadow-lg select-none"
+        title="Play Melodic Scale Run">
+        ♥
+    </button>
+
+    <!-- 35 DENSE HIGH-OPAQUE GEOMETRIC BACKDROP LAYERS -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden z-0 opacity-45 select-none">
+        <!-- LEFT BOUND VECTORS -->
+        <div class="absolute top-[5%] left-[3%] w-24 h-24 flex items-center justify-center drift-y">
+            <svg class="w-full h-full text-[#D48670] anim-tesseract" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="20" y="20" width="60" height="60"/><rect x="35" y="35" width="30" height="30" stroke-width="1.5"/><line x1="20" y1="20" x2="35" y2="35"/><line x1="80" y1="20" x2="65" y2="35"/></svg>
+        </div>
+        <div class="absolute top-[16%] left-[7%] w-12 h-12 drift-x">
+            <div class="absolute w-3.5 h-3.5 rounded-full bg-[#B05B43] anim-orbit"></div>
+            <div class="absolute w-2 h-2 rounded-full bg-[#FAF6F0] anim-orbit" style="animation-delay: -2s;"></div>
+            <div class="w-full h-full border border-dashed border-[#B05B43] rounded-full"></div>
+        </div>
+        <svg class="absolute top-[26%] left-[2%] w-20 h-20 text-[#D48670] drift-y" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2"><circle cx="50" cy="50" r="40"/><circle cx="50" cy="50" r="22" stroke-dasharray="5 3"/></svg>
+        <div class="absolute top-[36%] left-[6%] w-16 h-16 flex items-center justify-center text-[#9A847C] anim-gear-cw"><svg class="w-full h-full" viewBox="0 0 40 40" stroke="currentColor" stroke-width="1.5"><circle cx="20" cy="20" r="12" stroke-dasharray="3 2"/></svg></div>
+        <svg class="absolute top-[52%] left-[8%] w-14 h-14 text-[#B05B43] drift-y" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="0" y1="30" x2="60" y2="30"/><circle cx="30" cy="30" r="10"/></svg>
+        <div class="absolute top-[62%] left-[3%] w-[2px] h-28 bg-gradient-to-b from-[#D48670] to-transparent drift-x"></div>
+        <svg class="absolute bottom-[2%] left-[3%] w-16 h-16 text-[#9A847C] drift-y" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="2"><polygon points="30,8 52,48 8,48"/></svg>
+        <div class="absolute top-[22%] left-[12%] w-2 h-2 rounded-full bg-[#FAF6F0] drift-y"></div>
+        <div class="absolute bottom-[20%] left-[10%] w-2 h-2 rounded-full bg-[#FAF6F0] drift-y"></div>
+        <div class="absolute bottom-[15%] left-[2%] w-1 h-1 rounded-full bg-[#FAF6F0] drift-x"></div>
+
+        <!-- RIGHT BOUND VECTORS -->
+        <div class="absolute top-[7%] right-[4%] w-24 h-24 flex items-center justify-center drift-x">
+            <svg class="w-full h-full text-[#B05B43] anim-tesseract" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="25" y="25" width="50" height="50"/><line x1="25" y1="25" x2="75" y2="75"/></svg>
+        </div>
+        <div class="absolute top-[18%] right-[8%] w-12 h-12 drift-y">
+            <div class="absolute w-3 h-3 rounded-full bg-[#D48670] anim-orbit"></div>
+            <div class="absolute w-2 h-2 rounded-full bg-[#FAF6F0] anim-orbit" style="animation-delay: -1.5s;"></div>
+        </div>
+        <svg class="absolute top-[28%] right-[3%] w-24 h-24 text-[#D48670] drift-x" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2"><rect x="15" y="20" width="70" height="60" rx="30"/></svg>
+        <div class="absolute top-[40%] right-[6%] w-16 h-16 flex items-center justify-center text-[#9A847C] anim-gear-ccw"><svg class="w-full h-full" viewBox="0 0 40 40" stroke="currentColor" stroke-width="1.5"><circle cx="20" cy="20" r="4"/></svg></div>
+        <svg class="absolute top-[50%] right-[8%] w-16 h-16 text-[#FAF6F0] drift-y" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2"><circle cx="40" cy="40" r="30"/></svg>
+        <div class="absolute top-[62%] right-[4%] w-8 h-8 drift-x"><div class="absolute w-2.5 h-2.5 rounded-full bg-[#B05B43] anim-orbit"></div></div>
+        <svg class="absolute top-[70%] right-[7%] w-14 h-14 text-[#D48670] drift-y" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="2"><circle cx="30" cy="30" r="25"/></svg>
+        <div class="absolute top-[13%] right-[2%] w-1.5 h-1.5 rounded-full bg-[#B05B43] drift-x"></div>
+        <div class="absolute top-[36%] right-[11%] w-2.5 h-2.5 rounded-full bg-[#FAF6F0] drift-y"></div>
+        <div class="absolute bottom-[5%] right-[5%] w-3 h-3 rounded-full bg-[#D48670] drift-x"></div>
+    </div>
+
+    <!-- MAIN APP CANVAS FIELD -->
+    <div class="max-w-4xl w-full mx-auto px-6 sm:px-12 py-16 relative z-10 flex-1 flex flex-col justify-between">
+        
+        <!-- HEADER MODULE WITH PROSE -->
+        <header class="max-w-2xl mb-16 pt-8">
+            <span class="text-[11px] uppercase tracking-[0.25em] font-bold text-[#D48670] mb-3 block">A Token Of Appreciation</span>
+            <h1 class="text-4xl sm:text-6xl font-light tracking-tight text-[#FAF6F0] serif-font leading-tight mb-6">
+                For Our <span class="font-normal italic text-[#D48670]">Mumma</span>
+            </h1>
+            <p class="text-[#BAB0A4] text-sm sm:text-base leading-relaxed font-light mt-4">
+                Mumma, thank you for everything you have done for us. We are so grateful for all the sacrifices you've made and the immense hard work you continue to put in every single day. We both feel incredibly lucky to have you as our mother and love you more than words can say. We promise to make you proud and happy, forever.
+            </p>
+        </header>
+
+        <!-- APPRECIATION NOTE CARD MODULE -->
+        <section class="mb-16 border border-[#36302E] bg-[#221E1D] rounded-xl p-8 shadow-sm">
+            <p class="text-[#D9D0C5] leading-relaxed text-sm sm:text-base font-light italic">
+                "To the woman who handles our moods, puts up with our fitness routines, and keeps our lives running smoothly: thank you. Your patience is the only reason our home stays sane and happy. We might be busy building our futures, but our baseline will always be making sure you're taken care of. We love you tons, Mumma"
+            </p>
+        </section>
+
+        <!-- AUTOMATED LOOKBOOK ARCHIVE DISPLAY (6 IMAGES ASSETS) -->
+        <section class="mb-16">
+            <div class="mb-6 flex justify-between items-baseline border-b border-[#36302E] pb-3">
+                <h2 class="text-xs font-bold uppercase tracking-[0.2em] text-[#FAF6F0] serif-font">Photo Album</h2>
+                <span class="text-[10px] text-[#A59990] uppercase font-medium">Click image to expand view</span>
+            </div>
+
+            <div 
+                @click="galleryActive = true; playSfx('chime')"
+                class="group border border-[#36302E] bg-[#221E1D] hover:border-[#D48670] rounded-xl p-4 sm:p-6 cursor-pointer transition-all duration-300 shadow-md flex flex-col md:flex-row gap-8 items-center relative overflow-hidden">
+                
+                <div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#D48670]/30 to-transparent"></div>
+
+                <div class="w-full md:w-1/2 aspect-[16/10] sm:aspect-[16/9] rounded-lg overflow-hidden bg-[#2A2422] relative border border-[#36302E]">
+                    <template x-for="(photo, index) in photos" :key="index">
+                        <img x-show="photoIndex === index" :src="photo.url" x-transition:enter="transition opacity duration-600 ease-out" class="absolute inset-0 w-full h-full object-cover opacity-90" alt="Visual Panel">
+                    </template>
+                </div>
+
+                <div class="w-full md:w-1/2 space-y-4 flex flex-col justify-between self-stretch py-2">
+                    <div class="space-y-2">
+                        <h3 class="text-xl font-medium text-[#FAF6F0] serif-font tracking-wide" x-text="photos[photoIndex].title"></h3>
+                        <p class="text-xs text-[#BAB0A4] font-light leading-relaxed min-h-[50px]" x-text="photos[photoIndex].desc"></p>
+                    </div>
+                    <div class="flex items-center gap-2 pt-4 border-t border-[#36302E]">
+                        <template x-for="(photo, index) in photos" :key="index">
+                            <div :class="photoIndex === index ? 'w-8 bg-[#D48670]' : 'w-2 bg-[#3E3735]'" class="h-[3px] rounded-full transition-all duration-500"></div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VOLUMETRIC 3D INTERACTIVE LUNAR CONTROLLER -->
+        <section class="mb-16 border border-[#36302E] bg-[#221E1D] rounded-xl p-8 shadow-sm">
+            <div class="border-b border-[#3E3735] pb-3 mb-6 flex justify-between items-center">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-[#FAF6F0] serif-font">Lunar Ephemeris</h3>
+                <button 
+                    x-show="isInteractiveMoon"
+                    @click="syncToRealTimeMoon(); playSfx('tick')"
+                    class="text-[9px] font-mono uppercase bg-[#D48670]/10 border border-[#D48670]/30 hover:border-[#D48670] text-[#D48670] px-2 py-1 rounded transition-all">
+                    Lock to Current Date
+                </button>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center gap-10 bg-[#1B1817] p-8 rounded-lg border border-[#36302E]">
+                <div class="flex flex-col items-center gap-4 shrink-0">
+                    <div class="w-24 h-24 flex items-center justify-center bg-[#151312] rounded-full border border-[#36302E] shadow-2xl relative overflow-visible">
+                        <div class="w-20 h-20 flex items-center justify-center" x-html="getLunarMetrics().svg"></div>
+                    </div>
+                </div>
+
+                <div class="flex-1 w-full space-y-4 text-center md:text-left">
+                    <div>
+                        <span class="text-[10px] font-mono uppercase text-[#A59990] tracking-widest" x-text="isInteractiveMoon ? 'Manual Orbit Intercept'"></span>
+                        <h4 class="text-2xl font-medium text-[#D48670] serif-font uppercase mt-0.5" x-text="getLunarMetrics().name"></h4>
+                        <p class="text-xs text-[#BAB0A4] font-light mt-2 max-w-md leading-relaxed">
+                            Drag the cosmic sequence track below to spin the moon sphere manually through its complete 3D shadow boundaries for fun.
+                        </p>
+                    </div>
+                    
+                    <div class="pt-2">
+                        <input 
+                            type="range" min="0" max="100" 
+                            x-model="moonTimelinePct"
+                            @input="isInteractiveMoon = true"
+                            @change="playSfx('tick')"
+                            class="w-full accent-[#D48670] bg-[#221E1D] border border-[#36302E] h-1.5 rounded-lg cursor-pointer">
+                        <div class="flex justify-between text-[9px] font-mono text-[#5C504A] uppercase tracking-wider mt-1">
+                            <span>New Moon</span>
+                            <span>Full Moon</span>
+                            <span>Cycle End</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOROSCOPE SELECTOR GRID -->
+        <section class="mb-12 border border-[#36302E] bg-[#221E1D] rounded-xl p-8" x-data="{ 
+            currentDateStr: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+            signs: ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces']
+        }">
+            <div class="border-b border-[#3E3735] pb-3 mb-6 flex flex-col sm:flex-row justify-between items-baseline gap-2">
+                <div>
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-[#FAF6F0]">Daily Horoscope</h3>
+                    <p class="text-[10px] text-[#A59990] uppercase tracking-wider font-semibold mt-0.5">Click to view</p>
+                </div>
+                <span class="text-xs font-mono text-[#D48670] tracking-widest font-bold border border-[#36302E] bg-[#1B1817] px-3 py-1 rounded-md" x-text="currentDateStr"></span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <template x-for="sign in signs" :key="sign">
+                    <button 
+                        @click="selectedSign = sign; horoscopeActive = true; fetchHoroscope(sign); playSfx('chime')"
+                        class="bg-[#1B1817] border border-[#36302E] hover:border-[#D48670] text-[#BAB0A4] hover:text-[#FAF6F0] p-4 rounded-xl text-xs font-bold uppercase tracking-widest transition-all text-center flex flex-col items-center justify-center gap-1 group relative overflow-hidden">
+                        <span class="text-lg opacity-70 group-hover:opacity-100 transition-opacity">✦</span>
+                        <span x-text="sign" class="relative z-10"></span>
+                    </button>
+                </template>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- HOROSCOPE LIVE DISPLAY MODAL SHUTTER -->
+    <div x-show="horoscopeActive" class="fixed inset-0 z-[160] bg-[#110F0E]/95 backdrop-blur-xl flex items-center justify-center p-4" style="display: none;">
+        <div @click.away="horoscopeActive = false" class="bg-[#221E1D] border border-[#36302E] max-w-2xl w-full rounded-2xl p-8 relative shadow-2xl">
+            <button @click="horoscopeActive = false; playSfx('tick')" class="absolute top-4 right-4 text-slate-500 hover:text-white text-lg">✕</button>
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <span class="text-[10px] font-bold tracking-widest text-[#D48670] bg-[#D48670]/10 px-3 py-1 rounded-md uppercase" x-text="selectedSign"></span>
+                </div>
+                <div class="w-full h-[1px] bg-[#36302E] my-2"></div>
+                <h4 class="text-2xl font-medium text-[#FAF6F0] serif-font uppercase tracking-wide" x-text="selectedSign + ' Daily Forecast Reading'"></h4>
+                <p class="text-sm text-[#D9D0C5] leading-relaxed font-light text-justify transition-all duration-300 select-text" x-text="horoscopeText"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- HIGH-RES GALLERY MODAL DISPLAY VIEWPORT -->
+    <div x-show="galleryActive" class="fixed inset-0 z-[150] bg-[#110F0E]/96 backdrop-blur-xl flex flex-col items-center justify-center p-4" style="display: none;">
+        <div @click.away="galleryActive = false" class="max-w-4xl w-full flex flex-col items-center relative">
+            <button @click="galleryActive = false; playSfx('tick')" class="absolute -top-12 right-2 text-xs font-bold tracking-[0.2em] text-[#9A847C] hover:text-[#FAF6F0] uppercase">✕ Close Viewport</button>
+            <div class="w-full aspect-[4/5] sm:aspect-[16/10] bg-[#1B1817] border border-[#36302E] rounded-2xl overflow-hidden shadow-2xl flex items-center justify-center">
+                <img :src="photos[photoIndex].url" class="object-contain max-h-full max-w-full" alt="High Res Display" />
+            </div>
+        </div>
+    </div>
+
+    <!-- CREDIT LINE FOOTER -->
+<footer class="max-w-4xl w-full mx-auto px-6 sm:px-12 border-t border-[#36302E] py-8 flex flex-col sm:flex-row justify-center items-center text-center text-[10px] text-[#9A847C] tracking-[0.2em] uppercase gap-4">
+    <span>Designed by Aarav and Aabir • 2026</span>
+</footer>
+
+    <!-- INTERACTIVE REALITY-SHATTER MATRIX LAYER OVERLAY (GUITAR FRETBOARD INTERFACE DESIGN) -->
+    <div x-show="secretActive" class="fixed inset-0 z-[200] flex flex-col items-center justify-center p-6 text-center overflow-hidden bg-transparent pointer-events-none" :class="secretActive ? 'pointer-events-auto' : ''" style="display: none;">
+        
+        <!-- BACKLAY FLUID SHUTTER BASE CONTROLLER -->
+        <div class="absolute inset-0 bg-[#0A0909] blackout-overlay z-0" x-show="secretActive"></div>
+
+        <!-- RE-ENGINEERED 6-STRING GUITAR FRETBOARD LAYER GRAPHIC -->
+        <div x-show="secretActive" class="absolute inset-0 flex items-center justify-center z-10">
+            <div class="w-64 h-full bg-[#1A1514] border-x border-[#362D2B] relative shadow-2xl flex justify-between px-2 fretboard-interface opacity-0">
+                <!-- Wood grain texture overlay lines -->
+                <div class="absolute inset-y-0 left-0 right-0 bg-gradient-to-r from-transparent via-black/10 to-transparent pointer-events-none"></div>
+                
+                <!-- Horizontal Silver Fret Wire Markers -->
+                <div class="absolute top-[15%] left-0 right-0 h-[2px] bg-gradient-to-r from-zinc-600 via-zinc-400 to-zinc-600 shadow"></div>
+                <div class="absolute top-[35%] left-0 right-0 h-[2px] bg-gradient-to-r from-zinc-600 via-zinc-400 to-zinc-600 shadow"></div>
+                <div class="absolute top-[55%] left-0 right-0 h-[2px] bg-gradient-to-r from-zinc-600 via-zinc-400 to-zinc-600 shadow"></div>
+                <div class="absolute top-[75%] left-0 right-0 h-[2px] bg-gradient-to-r from-zinc-600 via-zinc-400 to-zinc-600 shadow"></div>
+                
+                <!-- 6 Vertical Tension Strings -->
+                <div class="w-[1px] h-full bg-zinc-400/80 relative flex items-center justify-center"><div class="w-4 h-4 rounded-full bg-[#D48670] shadow-xl border border-white note-marker absolute"></div></div>
+                <div class="w-[1px] h-full bg-zinc-400/80 relative flex items-center justify-center"><div class="w-4 h-4 rounded-full bg-[#D48670] shadow-xl border border-white note-marker absolute" style="animation-delay: 0.15s"></div></div>
+                <div class="w-[1.2px] h-full bg-zinc-400/90 relative flex items-center justify-center"><div class="w-4 h-4 rounded-full bg-[#D48670] shadow-xl border border-white note-marker absolute" style="animation-delay: 0.3s"></div></div>
+                <div class="w-[1.5px] h-full bg-zinc-500 relative flex items-center justify-center"><div class="w-4 h-4 rounded-full bg-[#D48670] shadow-xl border border-white note-marker absolute" style="animation-delay: 0.45s"></div></div>
+                <div class="w-[1.8px] h-full bg-zinc-500 relative flex items-center justify-center"><div class="w-4 h-4 rounded-full bg-[#D48670] shadow-xl border border-white note-marker absolute" style="animation-delay: 0.6s"></div></div>
+                <div class="w-[2.2px] h-full bg-yellow-700/60 relative flex items-center justify-center"><div class="w-4 h-4 rounded-full bg-[#D48670] shadow-xl border border-white note-marker absolute" style="animation-delay: 0.75s"></div></div>
+            </div>
+        </div>
+        
+        <!-- LOVE MESSAGE HUD PANEL (TRIGGERED PRECISELY AT 1.8s FROM MELODIC SCALE RESOLUTION) -->
+        <div class="max-w-xl space-y-4 opacity-0 synchronized-text-reveal relative z-20" x-show="secretActive">
+            <h2 class="text-5xl sm:text-7xl font-light text-[#FAF6F0] serif-font leading-none tracking-wide drop-shadow-[0_10px_35px_rgba(212,134,112,0.4)]">
+                LOVE YOU <br><span class="italic font-normal text-[#D48670]">MADRE</span>.
+            </h2>
+        </div>
+    </div>
+
+    <!-- RE-ENGINEERED MELODIC GUITAR AUDIO ENGINE SCRIPTS -->
+    <script>
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)(); 
+        
+        // Simulates an organic guitar string pluck using an exponential envelope flare and decay line
+        function pluckGuitarString(frequency, startTime, duration) {
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            // Mix of Triangle and Sawtooth waves mimic raw wooden acoustic chamber timbre
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(frequency, startTime);
+            
+            // High fret friction bite simulator
+            const biteOsc = audioCtx.createOscillator();
+            const biteGain = audioCtx.createGain();
+            biteOsc.type = 'sawtooth';
+            biteOsc.frequency.setValueAtTime(frequency * 2, startTime);
+            biteGain.gain.setValueAtTime(0.015, startTime);
+            biteGain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.08);
+            
+            // Core string resonance envelope mapping
+            gainNode.gain.setValueAtTime(0.001, startTime);
+            gainNode.gain.linearRampToValueAtTime(0.25, startTime + 0.01); // Sharp attack strike
+            gainNode.gain.exponentialRampToValueAtTime(0.04, startTime + 0.4); // Ringing sustain drop
+            gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + duration); // Smooth tail trails out
+            
+            osc.connect(gainNode);
+            biteOsc.connect(biteGain);
+            biteGain.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            osc.start(startTime);
+            biteOsc.start(startTime);
+            osc.stop(startTime + duration);
+            biteOsc.stop(startTime + duration);
+        }
+
+        function playSfx(t) { 
+            if (audioCtx.state === 'suspended') audioCtx.resume(); 
+            
+            if (t === 'tick') { 
+                const o = audioCtx.createOscillator(), g = audioCtx.createGain(); 
+                o.type = 'sine'; o.frequency.setValueAtTime(550, audioCtx.currentTime); 
+                g.gain.setValueAtTime(0.02, audioCtx.currentTime); 
+                o.connect(g); g.connect(audioCtx.destination); 
+                o.start(); o.stop(audioCtx.currentTime + 0.05); 
+            } else if (t === 'chime') { 
+                const o = audioCtx.createOscillator(), g = audioCtx.createGain(); 
+                o.type = 'triangle'; o.frequency.setValueAtTime(440, audioCtx.currentTime); 
+                g.gain.setValueAtTime(0.02, audioCtx.currentTime); 
+                o.connect(g); g.connect(audioCtx.destination); 
+                o.start(); o.stop(audioCtx.currentTime + 0.15); 
+            } else if (t === 'guitar-run') { 
+                const now = audioCtx.currentTime;
+                // Descending Guitar String Pentatonic Scale Cadence: E5 -> B4 -> G4 -> D4 -> A3 -> E2
+                const stringsScale = [659.25, 493.88, 392.00, 293.66, 220.00, 82.41];
+                const stringIntervalDelay = 0.15; // Pluck pacing parameters
+                const stringResonanceSustain = 2.2;
+                
+                stringsScale.forEach((freq, idx) => {
+                    pluckGuitarString(freq, now + (idx * stringIntervalDelay), stringResonanceSustain);
+                });
+            } 
+        }
+    </script>
+
+</body>
+</html>
