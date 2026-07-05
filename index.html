@@ -243,11 +243,22 @@
             </p>
         </header>
 
-        <!-- APPRECIATION NOTE CARD MODULE -->
-        <section class="mb-16 border border-[#36302E] bg-[#221E1D] rounded-xl p-8 shadow-sm">
-            <p class="text-[#D9D0C5] leading-relaxed text-sm sm:text-base font-light italic">
-                "To the woman who handles our moods, puts up with our fitness routines, and keeps our lives running smoothly: thank you. Your patience is the only reason our home stays sane and happy. We might be busy building our futures, but our baseline will always be making sure you're taken care of. We love you tons, Mumma"
-            </p>
+      <!-- APPRECIATION GIF CARD MODULE -->
+        <section class="mb-16 border border-[#36302E] bg-[#221E1D] rounded-xl p-6 sm:p-8 shadow-sm flex flex-col items-center justify-center relative overflow-hidden">
+            <!-- Top Subtle Border Glow -->
+            <div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#D48670]/30 to-transparent"></div>
+            
+            <!-- Optional Small Section Label -->
+            <span class="text-[10px] font-bold tracking-widest text-[#D48670] uppercase block mb-4 self-start">A Little Note For You // 02</span>
+            
+            <!-- The GIF Container Box -->
+            <div class="w-full max-w-xl aspect-[16/9] rounded-lg overflow-hidden bg-[#1B1817] border border-[#36302E] relative group">
+                <img 
+                    src="love.gif" 
+                    class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300" 
+                    alt="Appreciation Animation"
+                />
+            </div>
         </section>
 
         <!-- AUTOMATED LOOKBOOK ARCHIVE DISPLAY (6 IMAGES ASSETS) -->
@@ -307,7 +318,7 @@
                         <span class="text-[10px] font-mono uppercase text-[#A59990] tracking-widest" x-text="isInteractiveMoon ? 'Manual Orbit Intercept'"></span>
                         <h4 class="text-2xl font-medium text-[#D48670] serif-font uppercase mt-0.5" x-text="getLunarMetrics().name"></h4>
                         <p class="text-xs text-[#BAB0A4] font-light mt-2 max-w-md leading-relaxed">
-                            Drag the cosmic sequence track below to spin the moon sphere manually through its complete 3D shadow boundaries for fun.
+                            Drag the track below to spin the moon sphere manually through its complete 3D shadow boundaries for fun.
                         </p>
                     </div>
                     
