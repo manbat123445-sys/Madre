@@ -328,30 +328,42 @@
             </div>
         </section>
 
-        <!-- HOROSCOPE SELECTOR GRID -->
         <section class="mb-12 border border-[#36302E] bg-[#221E1D] rounded-xl p-8" x-data="{ 
-            currentDateStr: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
-            signs: ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces']
-        }">
-            <div class="border-b border-[#3E3735] pb-3 mb-6 flex flex-col sm:flex-row justify-between items-baseline gap-2">
-                <div>
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-[#FAF6F0]">Daily Horoscope</h3>
-                    <p class="text-[10px] text-[#A59990] uppercase tracking-wider font-semibold mt-0.5">Click to view</p>
-                </div>
-                <span class="text-xs font-mono text-[#D48670] tracking-widest font-bold border border-[#36302E] bg-[#1B1817] px-3 py-1 rounded-md" x-text="currentDateStr"></span>
-            </div>
+    currentDateStr: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+    signs: [
+        { id: 'aries', name: 'aries', symbol: '♈' },
+        { id: 'taurus', name: 'taurus', symbol: '♉' },
+        { id: 'gemini', name: 'gemini', symbol: '♊' },
+        { id: 'cancer', name: 'cancer', symbol: '♋' },
+        { id: 'leo', name: 'leo', symbol: '♌' },
+        { id: 'virgo', name: 'virgo', symbol: '♍' },
+        { id: 'libra', name: 'libra', symbol: '♎' },
+        { id: 'scorpio', name: 'scorpio', symbol: '♏' },
+        { id: 'sagittarius', name: 'sagittarius', symbol: '♐' },
+        { id: 'capricorn', name: 'capricorn', symbol: '♑' },
+        { id: 'aquarius', name: 'aquarius', symbol: '♒' },
+        { id: 'pisces', name: 'pisces', symbol: '♓' }
+    ]
+}">
+    <div class="border-b border-[#3E3735] pb-3 mb-6 flex flex-col sm:flex-row justify-between items-baseline gap-2">
+        <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-[#FAF6F0]">Daily Horoscope</h3>
+            <p class="text-[10px] text-[#A59990] uppercase tracking-wider font-semibold mt-0.5">Click to view</p>
+        </div>
+        <span class="text-xs font-mono text-[#D48670] tracking-widest font-bold border border-[#36302E] bg-[#1B1817] px-3 py-1 rounded-md" x-text="currentDateStr"></span>
+    </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <template x-for="sign in signs" :key="sign">
-                    <button 
-                        @click="selectedSign = sign; horoscopeActive = true; fetchHoroscope(sign); playSfx('chime')"
-                        class="bg-[#1B1817] border border-[#36302E] hover:border-[#D48670] text-[#BAB0A4] hover:text-[#FAF6F0] p-4 rounded-xl text-xs font-bold uppercase tracking-widest transition-all text-center flex flex-col items-center justify-center gap-1 group relative overflow-hidden">
-                        <span class="text-lg opacity-70 group-hover:opacity-100 transition-opacity">✦</span>
-                        <span x-text="sign" class="relative z-10"></span>
-                    </button>
-                </template>
-            </div>
-        </section>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <template x-for="sign in signs" :key="sign.id">
+            <button 
+                @click="selectedSign = sign.id; horoscopeActive = true; fetchHoroscope(sign.id); playSfx('chime')"
+                class="bg-[#1B1817] border border-[#36302E] hover:border-[#D48670] text-[#BAB0A4] hover:text-[#FAF6F0] p-4 rounded-xl text-xs font-bold uppercase tracking-widest transition-all text-center flex flex-col items-center justify-center gap-1 group relative overflow-hidden">
+                <span class="text-2xl opacity-70 group-hover:opacity-100 transition-opacity mb-1" x-text="sign.symbol"></span>
+                <span x-text="sign.name" class="relative z-10 text-[10px] text-[#9A847C] group-hover:text-[#E7E0D7]"></span>
+            </button>
+        </template>
+    </div>
+</section>
 
     </div>
 
