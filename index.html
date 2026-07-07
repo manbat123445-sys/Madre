@@ -291,19 +291,17 @@
             </p>
         </header>
 
-     <!-- APPRECIATION GIF CARD MODULE -->
+    <!-- APPRECIATION GIF CARD MODULE (AUTO-FIT SHAPE) -->
         <section class="mb-16 border border-[#36302E] bg-[#221E1D] rounded-xl p-6 sm:p-8 shadow-sm flex flex-col items-center justify-center relative overflow-hidden">
-            <!-- Subtle Top Border Glow Line -->
             <div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#D48670]/30 to-transparent"></div>
             
-            <!-- Optional Label Header -->
-            <span class="text-[10px] font-bold tracking-widest text-[#D48670] uppercase block mb-4 self-start"></span>
+            <span class="text-[10px] font-bold tracking-widest text-[#D48670] uppercase block mb-4 self-start">A Little Note For You // 02</span>
             
-            <!-- Responsive GIF Framing Box -->
-            <div class="w-full max-w-xl aspect-[16/9] rounded-lg overflow-hidden bg-[#1B1817] border border-[#36302E] relative group">
+            <!-- Removed aspect ratio constraint so it shapes itself around the GIF naturally -->
+            <div class="w-full max-w-xl rounded-lg overflow-hidden bg-[#1B1817] border border-[#36302E] relative group">
                 <img 
-                    src="nigga.gif" 
-                    class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300" 
+                    src="love.gif" 
+                    class="w-full h-auto object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-300" 
                     alt="Appreciation Animation"
                 />
             </div>
