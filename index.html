@@ -147,7 +147,8 @@
             this.loadingAstro = true;
             this.horoscopeText = 'Connecting to real-time cosmological feed array...';
             
-            fetch(`https://theastrologer-api.vercel.app/api/horoscope/${sign}/today`)
+            // Added a cache-busting timestamp (?t=...) so the browser is forced to pull fresh data daily
+            fetch(`https://theastrologer-api.vercel.app/api/horoscope/${sign}/today?t=${new Date().getTime()}`)
                 .then(res => {
                     if (!res.ok) throw new Error();
                     return res.json();
@@ -161,22 +162,62 @@
                     this.loadingAstro = false;
                 })
                 .catch(() => {
-                    const currentYearDay = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 1)) / 86400000);
+                    // Optimized fallback array that shifts dynamically based on the exact day and hour
+                    const hourSeed = new Date().getHours();
+                    const daySeed = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 1)) / 86400000);
+                    const dynamicIndex = (daySeed + hourSeed) % 2; 
+
                     const fallbacks = {
-                        aries: ['The elemental fire alignment scales up an intense period of self-actualization today. Planetary tracks are pushing your productivity metrics into high gear, clearing roadblocks across personal architectures. Mars infuses your primary axis with focus, making it an exceptional window to execute structural transformations. Trust the pacing of your current cycle. You will find that family interactions are highly prioritized under this transit, giving you the clarity needed to balance immediate logistics while protecting household harmony from unnecessary stress. Rest your thoughts on long-term execution plans this evening.'],
-                        taurus: ['Grounding earth currents stabilize your current ambitions, forming a fortress against external system noise. Your financial and workspace frameworks are entering a clean, locked equilibrium. Venus coordinates elegant configurations across your chart, ensuring that behind-the-scenes adjustments match your foundational needs perfectly. Expect clear indicators of progress regarding household coordination or shared timelines. Cosmic parameters shield your focus today, allowing you to establish absolute order in your daily environment. Take this evening to rest comfortably as the planetary axis locks in peace and restorative clarity across your personal circle.'],
-                        gemini: ['A major surge of high-frequency cerebral influx hits your communicative axis today. Mercury coordinates multi-directional data lines, making it easy to resolve conceptual puzzles instantly. Creative ventures see robust progress as planetary channels shift to accommodate fast, innovative breakthroughs. Your natural adaptability becomes a major asset as unexpected background variables shift. Use this high-energy pattern to communicate vision parameters cleanly with family members. A lighthearted, witty evening approach keeps atmospheric friction completely nonexistent while drawing focus toward mutual weekly milestones.'],
-                        cancer: ['Intuitive lunar currents emphasize your foundational instincts and home architecture today. Cosmic grids form a dense, protective shield around your close network, allowing for seamless emotional calibration. Trust your internal diagnostics; they are pointing accurately toward immediate structural improvements. Shifting planetary lines allow you to direct family logistics with absolute poise and zero friction. Your presence serves as a calming anchor for the entire household right now. Maximize this nurturing energy by locking down steady, comfortable evening routines that prioritize collective rest.'],
-                        leo: ['Solar positioning magnifies your innate execution metrics, highlighting personal presence and creative output. A profound wave of clarity sweeps across your chart, refining your vision for family and long-term milestones. Planetary currents align beautifully to support authoritative, confident choices. You are exceptionally well-positioned to take charge of complex logistical matters without breaking a sweat today. Let your natural leadership style shine softly through your interactions, ensuring that everyone remains perfectly aligned. An exceptionally rewarding evening brings validation for your dedication.'],
-                        virgo: ['Meticulous Mercury aspects refine your system tracking capabilities today. Minor tracking revisions across your personal or professional loops will yield massive, high-fidelity efficiency rewards. Your natural capacity to manage complex data and coordinate routines resolves long-standing friction. Family members notice your incredible ability to keep everything running cleanly and systematically behind the scenes. Use this targeted energy to iron out dietary profiles or fitness logistics. Your dedicated discipline sets a high benchmark that protects household harmony perfectly.'],
-                        libra: ['Venusian stabilization vectors bring beautiful symmetry and diplomacy to your chart today. Interpersonal connections experience a smooth, balanced integration as cosmic tracking lines eliminate underlying friction. This atmospheric ease opens an ideal window to enjoy artistic or restorative activities. Communication with close family is highlighted by deep understanding and mutual appreciation templates. You can easily navigate complex schedules or sensitive choices with graceful poise today. Celebrate the quiet harmony of your immediate hub this evening.'],
-                        scorpio: ['Deep plutonic channels activate sharp strategic acumen and high-fidelity situational analysis across your chart. You possess an unparalleled capacity to see through environmental noise and secure your principal objectives cleanly. Trust your silent, focused diagnostics today. A powerful alignment protects your personal boundaries, allowing you to coordinate complex family blueprints from a position of absolute certainty. Move quietly and purposefully; your deliberate actions carry incredible weight and structure. A deeply satisfying evening brings total focus.'],
-                        sagittarius: ['Jupiter\'s expansive frequency opens up clear, progressive lanes across your chart today. Your outlook is characterized by high operational confidence, making it a perfect moment to launch new structural frameworks. Trust your broader tracking vectors; they are solid. Cosmic configurations support bold, optimistic family planning or workspace optimizations. Your natural enthusiasm brings an uplifting, dynamic frequency into the entire house layout. Take charge of forward-looking tasks with complete confidence today.'],
-                        capricorn: ['Rigorous Saturnian metrics stabilize your absolute framework, ensuring pristine long-term execution and boundary protection. Your primary long-term targets hit high validation marks today as cosmic support systems lock in. Continue holding your ground with calm, methodical persistence. Your legendary capacity to handle household operations solo with complete efficiency remains the structural backbone of your environment. Use this high-focus transit to map out structural timelines or budget details with crisp clarity.'],
-                        aquarius: ['Progressive stellar configurations map out profound diagnostic updates across your chart today. Your unique capacity to identify systemic, modern solutions to old puzzles brings instant equilibrium to your environment. Trust your innovative logic; it aligns beautifully with larger timelines. The cosmic matrix highlights your role as a forward-thinking visionary within your immediate family circle. Let your spontaneous insights direct household updates or scheduling parameters cleanly and effortlessly.'],
-                        pisces: ['Fluid, intuitive tides expand your creative processing capacity and empathetic understanding today. Planetary tracking modules shift seamlessly to support smooth, back-end operational alignment across your life. Trust the organic development of your projects. Your compassionate, deep presence creates an incredibly welcoming atmosphere inside the household right now. Use this supportive grid to align personal goals with mutual family milestones cleanly.']
+                        aries: [
+                            'The planetary tracks are pushing your productivity metrics into high gear today, clearing roadblocks across personal architectures. Mars infuses your primary axis with absolute focus. Trust the pacing of your current cycle to balance immediate logistics seamlessly.',
+                            'A fresh lunar alignment brings sudden clarity to your long-term execution plans this evening. Cosmic parameters shield your focus today, allowing you to establish absolute order in your daily routines and personal space.'
+                        ],
+                        taurus: [
+                            'Grounding earth currents stabilize your current ambitions today, forming a fortress against external noise. Expect clear indicators of progress regarding household coordination or shared timelines.',
+                            'Venus coordinates elegant configurations across your chart, ensuring that behind-the-scenes adjustments match your foundational needs perfectly. Take this evening to rest comfortably as the planetary axis locks in peace.'
+                        ],
+                        gemini: [
+                            'A major surge of high-frequency energy hits your communicative axis today. Mercury coordinates multi-directional data lines, making it easy to resolve conceptual puzzles instantly.',
+                            'Creative ventures see robust progress as planetary channels shift to accommodate fast, innovative breakthroughs. Use this high-energy pattern to organize your upcoming schedules cleanly.'
+                        ],
+                        cancer: [
+                            'Intuitive lunar currents emphasize your foundational instincts and home architecture today. Cosmic grids form a dense, protective shield around your space, allowing for seamless calibration.',
+                            'Shifting planetary lines allow you to direct personal logistics with absolute poise and zero friction. Your focus serves as a calming anchor for everyone around you right now.'
+                        ],
+                        leo: [
+                            'Solar positioning magnifies your innate execution metrics, highlighting personal presence and creative output today. A profound wave of clarity sweeps across your chart, refining your vision.',
+                            'Planetary currents align beautifully to support authoritative, confident choices. You are exceptionally well-positioned to take charge of complex logistical matters without breaking a sweat.'
+                        ],
+                        virgo: [
+                            'Meticulous Mercury aspects refine your system tracking capabilities today. Minor tracking revisions across your personal loops will yield massive, high-fidelity efficiency rewards.',
+                            'Your natural capacity to manage complex data and coordinate routines resolves long-standing friction. Your dedicated discipline sets a high benchmark that protects your daily flow perfectly.'
+                        ],
+                        libra: [
+                            'Venusian stabilization vectors bring beautiful symmetry and diplomacy to your chart today. Interpersonal connections experience a smooth, balanced integration as cosmic tracking lines smooth out.',
+                            'This atmospheric ease opens an ideal window to enjoy artistic or restorative activities. Communication with those closest to you is highlighted by deep understanding and mutual appreciation templates.'
+                        ],
+                        scorpio: [
+                            'Deep plutonic channels activate sharp strategic acumen and high-fidelity situational analysis across your chart today. You possess an unparalleled capacity to see through environmental noise.',
+                            'A powerful alignment protects your personal boundaries, allowing you to coordinate complex blueprints from a position of absolute certainty. Move quietly and purposefully toward your targets.'
+                        ],
+                        sagittarius: [
+                            'Jupiters expansive frequency opens up clear, progressive lanes across your chart today. Your outlook is characterized by high operational confidence, making it a perfect moment to launch new frameworks.',
+                            'Cosmic configurations support bold, optimistic planning or workspace optimizations. Your natural enthusiasm brings an uplifting, dynamic frequency into your entire layout today.'
+                        ],
+                        capricorn: [
+                            'Rigorous Saturnian metrics stabilize your absolute framework, ensuring pristine long-term execution and boundary protection today. Your primary long-term targets hit high validation marks.',
+                            'Continue holding your ground with calm, methodical persistence. Your legendary capacity to handle operations solo with complete efficiency remains the structural backbone of your environment.'
+                        ],
+                        aquarius: [
+                            'Progressive stellar configurations map out profound diagnostic updates across your chart today. Your unique capacity to identify systemic, modern solutions to old puzzles brings instant equilibrium.',
+                            'The cosmic matrix highlights your role as a forward-thinking visionary within your immediate circle. Let your spontaneous insights direct updates or scheduling parameters cleanly.'
+                        ],
+                        pisces: [
+                            'Fluid, intuitive tides expand your creative processing capacity and empathetic understanding today. Planetary tracking modules shift seamlessly to support smooth, back-end operational alignment.',
+                            'Trust the organic development of your projects. Your compassionate, deep presence creates an incredibly welcoming atmosphere inside your immediate environment right now.'
+                        ]
                     };
-                    this.horoscopeText = fallbacks[sign][currentYearDay % fallbacks[sign].length];
+                    this.horoscopeText = fallbacks[sign][dynamicIndex];
                     this.loadingAstro = false;
                 });
         }
